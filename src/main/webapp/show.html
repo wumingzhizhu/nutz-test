@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分页展示</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="/nutz-test/static/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/nutz-test/static/angular/ng-pagination.css">
+    <script src="/nutz-test/static/jquery/jquery.min.js"></script>
+    <script src="/nutz-test/static/angular/angular.min.js"></script>
+    <script src="/nutz-test/static/angular/ng-pagination.js"></script>
+    <script src="/nutz-test/static/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="app" ng-app="myApp" ng-controller="myCtrl">
+    <div style="overflow: auto; width: 100%;">
+	    <table class="table table-hover table-striped table-bordered" id="j-table">
+	        <thead>
+	            <tr>
+	                <th>姓名</th>
+	                <th>年龄</th>
+	                <th>电话</th>
+	                <th>职位</th>
+	            </tr>        
+	        </thead>
+	        <tbody>
+	            <tr ng-repeat="item in list">
+	                <th title="{{item.name}}">{{item.name}}</th>
+	                <th title="{{item.age}}">{{item.age}}</th>
+	                <th title="{{item.tel}}">{{item.tel}}</th>
+	                <th title="{{item.position}}">{{item.position}}</th>
+	            </tr>
+	        </tbody>
+	    </table>
+    </div>
+    <div class="pager">
+      <pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+var app = angular.module('myApp', ['ng-pagination']);
+app.controller('myCtrl', ['$scope', function ($scope) {
+	$scope.onPageChange = function() {
+	      // ajax request to load data
+	      console.log($scope.currentPage);
+	      $.ajax({
+              type:"post",
+              url:'/nutz-test/show/pagination',
+              data:{
+                  "pageSize":5,
+                  "pageIndex":$scope.currentPage
+              },
+              dataType:"json",
+              success:function(data){
+                  $scope.$apply(function () {
+                      $scope.list = data.list;
+                      $scope.pageCount = data.pageCount;
+                    });
+                  
+              }
+          })
+	    };
+	    //$scope.pageCount = 10;
+	    //初始化
+	    $scope.myinit = function(){
+	    	$.ajax({
+	              type:"post",
+	              url:'/nutz-test/show/pagination',
+	              data:{
+	                  "pageSize":5,
+	                  "pageIndex":1
+	              },
+	              dataType:"json",
+	              success:function(data){
+	            	  $scope.$apply(function () {
+	            		  $scope.list = data.list;
+	                      $scope.pageCount = data.pageCount;
+	                    });
+	                  
+	              }
+	          })
+	    };
+	    $scope.myinit();
+}]);
+</script>
+</html>
