@@ -3,7 +3,7 @@ var ioc = {
     conf : {
         type : "org.nutz.ioc.impl.PropertiesProxy",
         fields : {
-            paths : ["portal.properties"]
+            paths : ["portal.properties","mail.properties"]
         }
     },
 	dataSource: {
@@ -20,6 +20,7 @@ var ioc = {
             initialSize     : 10,
             maxActive       : 100,
             testOnReturn    : true,
+            testWhileIdle : true, // 非常重要,预防mysql的8小时timeout问题
             //validationQueryTimeout : 5,
             validationQuery : "select 1"
         }

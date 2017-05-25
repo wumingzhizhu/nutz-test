@@ -7,7 +7,9 @@ import org.nutz.mvc.annotation.ChainBy;
 import org.nutz.mvc.annotation.IocBy;
 import org.nutz.mvc.annotation.Modules;
 import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.SetupBy;
 
+@SetupBy(value=MainSetup.class)
 @Modules(scanPackage = true)
 @IocBy(args={"*js", "ioc/",
         "*anno", "com.wumingzhizhu.nutz",

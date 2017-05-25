@@ -17,6 +17,7 @@ public class LogTimeProcessor extends AbstractProcessor{
 		// TODO Auto-generated method stub
 		Stopwatch sw = Stopwatch.begin();
 		try {
+			System.out.println( "这是LogTime" );
 			doNext( ac );
 		}
 		finally{
