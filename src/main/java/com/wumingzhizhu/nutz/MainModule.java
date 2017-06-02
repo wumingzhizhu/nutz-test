@@ -1,9 +1,10 @@
-package com.wumingzhizhu.nutz;
+	package com.wumingzhizhu.nutz;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.ChainBy;
+import org.nutz.mvc.annotation.Fail;
 import org.nutz.mvc.annotation.IocBy;
 import org.nutz.mvc.annotation.Modules;
 import org.nutz.mvc.annotation.Ok;
@@ -17,6 +18,8 @@ import org.nutz.mvc.annotation.SetupBy;
         "*tx"
         })
 @ChainBy(args="mvc/mvc-chain.js")
+@Ok("json:full")
+@Fail("jsp:jsp.500")
 public class MainModule {
 	private static final Logger Logger = LogManager.getLogger( MainModule.class );
 	
