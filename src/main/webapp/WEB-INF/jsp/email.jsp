@@ -10,11 +10,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit">
     <link rel="stylesheet" href="/nutz-test/static/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/nutz-test/static/angular/ng-pagination.css">
     <script src="/nutz-test/static/jquery/jquery.min.js"></script>
     <script src="/nutz-test/static/angular/angular.min.js"></script>
-    <script src="/nutz-test/static/angular/ng-pagination.js"></script>
     <script src="/nutz-test/static/bootstrap/bootstrap.min.js"></script>
+    <script src="/nutz-test/static/jquery/jquery.ajaxupload.js"></script>
 </head>
 <body>
 <div ng-app="myapp" ng-controller="mycontroller">
@@ -44,6 +43,49 @@
 			</div>
 		</div>
 	</form>
+	<hr/>
+	<form id="formFirst" name="upload" enctype="multipart/form-data" 
+		method="post" class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-2">
+				<input type="file" name="uploads"/></p>
+	        	<input type="button" value="上传" ng-click="uploadall('formFirst')"/>
+	        	<input type="hidden" value="第一个文件" name="answerId">
+			</div>
+		</div>
+	</form>
+	<hr/>
+	<form id="formSecond" name="upload" enctype="multipart/form-data" 
+		method="post" class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-2">
+				<input type="file" name="uploads"/></p>
+	        	<input type="button" value="上传" ng-click="uploadall('formSecond')"/>
+	        	<input type="hidden" value="第二个文件" name="answerId">
+			</div>
+		</div>
+	</form>
+	<hr/>
+	
+	
+	
 </div>
 </body>
+<script type="text/javascript">
+var app = angular.module('myapp', []);
+app.controller('mycontroller',function($scope){
+	$scope.uploadall = function(id){
+		//通过id来判断是哪个form表单进行上传操作
+		$("#" + id).ajaxUpload({
+			url:"${base}/mail/upload",
+            dataType:'json',
+            success: function (data, status, xhr){
+            	$scope.$apply(function () {
+          		  	alert(data.result);
+                  });
+            }
+		});
+	}
+});
+</script>
 </html>
