@@ -28,6 +28,9 @@ properties文件，该文件应该放在resources目录下
 ```
 9. 一些基本的操作类
 ```
+```
+10. jsp实现java后台接口功能
+```
 ## Package说明
 * demo : 各种例子
 * entity : 实体类
